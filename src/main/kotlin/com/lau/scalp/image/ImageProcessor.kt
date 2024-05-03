@@ -12,10 +12,35 @@ import java.awt.image.BufferedImage.TYPE_INT_ARGB
 import java.awt.image.ConvolveOp
 import java.awt.image.ConvolveOp.EDGE_NO_OP
 import java.awt.image.Kernel
+import kotlin.math.exp
 
 object ImageProcessor {
 
-    private val kernel = Kernel(7, 7, FloatArray(49) { 1.0f / 49.0f })
+    private const val KERNEL_SIZE = 7
+    private const val SIGMA = 5.0
+    private val kernel = createGaussianKernel()
+
+    private fun createGaussianKernel(): Kernel {
+        val center = KERNEL_SIZE / 2
+        var sum = 0.0
+        val matrix = FloatArray(KERNEL_SIZE * KERNEL_SIZE) { 0.0f }
+
+        for (x in 0 until KERNEL_SIZE) {
+            for (y in 0 until KERNEL_SIZE) {
+                val xDistance = x - center
+                val yDistance = y - center
+                val value = exp(-(xDistance * xDistance + yDistance * yDistance) / (2 * SIGMA * SIGMA)).toFloat()
+                matrix[y * KERNEL_SIZE + x] = value
+                sum += value
+            }
+        }
+
+        for (i in matrix.indices) {
+            matrix[i] /= sum.toFloat()
+        }
+
+        return Kernel(KERNEL_SIZE, KERNEL_SIZE, matrix)
+    }
 
     fun crop(sourceImage: BufferedImage, rect: Rect): BufferedImage =
         sourceImage.getSubimage(
@@ -46,20 +71,50 @@ object ImageProcessor {
         return sourceImage
     }
 
-    fun blur(sourceImage: BufferedImage, rect: Rect): BufferedImage =
-        BufferedImage(sourceImage.width, sourceImage.height, TYPE_INT_ARGB).apply {
-            with(createGraphics()) {
-                drawImage(sourceImage, 0, 0, null)
-                drawImage(
-                    ConvolveOp(kernel, EDGE_NO_OP, null)
-                        .filter(sourceImage.getSubimage(rect.x, rect.y, rect.width, rect.height), null),
-                    rect.x,
-                    rect.y,
-                    null
-                )
-                dispose()
-            }
+    fun blur(sourceImage: BufferedImage, rect: Rect): BufferedImage {
+        val margin = KERNEL_SIZE / 2 + 2
+        val paddedRect = Rect(
+            x = rect.x - margin,
+            y = rect.y - margin,
+            width = rect.width + 2 * margin,
+            height = rect.height + 2 * margin
+        )
+
+        val clippedRect = Rect(
+            0.coerceAtLeast(paddedRect.x),
+            0.coerceAtLeast(paddedRect.y),
+            (sourceImage.width - paddedRect.x).coerceAtMost(paddedRect.width),
+            (sourceImage.height - paddedRect.y).coerceAtMost(paddedRect.height)
+        )
+
+        val subImage = sourceImage.getSubimage(
+            clippedRect.x,
+            clippedRect.y,
+            clippedRect.width,
+            clippedRect.height
+        )
+        val blurredSubImage = BufferedImage(
+            subImage.width,
+            subImage.height,
+            TYPE_INT_ARGB
+        )
+
+        with(blurredSubImage.createGraphics()) {
+            drawImage(subImage, 0, 0, null)
+            dispose()
         }
+
+            ConvolveOp(kernel, EDGE_NO_OP, null)
+                .filter(subImage, blurredSubImage)
+
+        with(sourceImage.createGraphics()) {
+            drawImage(blurredSubImage, clippedRect.x, clippedRect.y, null)
+            dispose()
+        }
+
+        return sourceImage
+    }
+
 
     fun addText(
         sourceImage: BufferedImage,

@@ -15,7 +15,7 @@ data class ScreenshotConfig(
 )
 
 data class MetadataFragment(
-    val index: Int,
+    val index: Int?,
     val fragment: Rect,
-    val anchor: Point
+    val anchor: Point?
 )

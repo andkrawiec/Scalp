@@ -64,13 +64,15 @@ class Scalp(
                         color = borderColor,
                         lineWidth = borderWidth
                     )
-                    ImageProcessor.addText(
-                        sourceImage = image,
-                        point = meta.anchor,
-                        color = textColor,
-                        text = meta.index.toString(),
-                        font = font
-                    )
+                    meta.anchor?.run {
+                        ImageProcessor.addText(
+                            sourceImage = image,
+                            point = this,
+                            color = textColor,
+                            text = meta.index.toString(),
+                            font = font
+                        )
+                    }
                 }
             }
         }

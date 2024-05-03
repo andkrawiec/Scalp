@@ -77,18 +77,26 @@ class ScreenshotConfigBuilder(
     }
 
     fun metadata(
-        index: Int,
         fragment: WebElement,
-        anchor: AnchorPosition,
         f: (MetadataModifierBuilder.() -> Unit)? = null
     ) {
-        metadata(index, fragment, anchor.raw, f)
+        val anchor: Int? = null
+        metadata(fragment, null, anchor, f)
     }
 
     fun metadata(
-        index: Int,
         fragment: WebElement,
-        anchor: Int,
+        index: Int? = null,
+        anchor: AnchorPosition? = null,
+        f: (MetadataModifierBuilder.() -> Unit)? = null
+    ) {
+        metadata(fragment, index, anchor?.raw, f)
+    }
+
+    fun metadata(
+        fragment: WebElement,
+        index: Int? = null,
+        anchor: Int? = null,
         f: (MetadataModifierBuilder.() -> Unit)? = null
     ) {
         metadata += {
@@ -99,13 +107,15 @@ class ScreenshotConfigBuilder(
             MetadataFragment(
                 index = index,
                 fragment = rect.applyPadding(padding),
-                anchor = calculator.getPosition(
-                    baseRect = rect,
-                    anchor = anchor,
-                    padding = padding,
-                    offsetX = modifier?.offsetX ?: 0,
-                    offsetY = modifier?.offsetY ?: 0
-                )
+                anchor = anchor?.let { anchor ->
+                    calculator.getPosition(
+                        baseRect = rect,
+                        anchor = anchor,
+                        padding = padding,
+                        offsetX = modifier?.offsetX ?: 0,
+                        offsetY = modifier?.offsetY ?: 0
+                    )
+                }
             )
         }
     }
