@@ -1,4 +1,4 @@
-package com.lau.scalp.image
+package io.github.andkrawiec.image
 
 import org.openqa.selenium.WebElement
 
@@ -23,7 +23,6 @@ data class Rect(
 
 fun rect(x: Int, y: Int, width: Int, height: Int): Rect =
     Rect(x, y, width, height)
-
 
 fun WebElement.rect(): Rect =
     Rect(rect.x, rect.y, rect.width, rect.height)

@@ -1,4 +1,4 @@
-package com.lau.scalp.config
+package io.github.andkrawiec.config
 
 import java.awt.Color
 import java.awt.Font

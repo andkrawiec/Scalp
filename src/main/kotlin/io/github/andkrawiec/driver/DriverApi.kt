@@ -1,6 +1,6 @@
-package com.lau.scalp.driver
+package io.github.andkrawiec.driver
 
-import com.lau.scalp.config.ScalpConfig
+import io.github.andkrawiec.config.ScalpConfig
 import java.awt.image.BufferedImage
 import java.io.ByteArrayInputStream
 import java.util.Base64

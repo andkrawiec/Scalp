@@ -1,4 +1,4 @@
-package com.lau.scalp.image
+package io.github.andkrawiec.image
 
 data class Point(
     val x: Int,

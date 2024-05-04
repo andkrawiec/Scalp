@@ -1,8 +1,8 @@
-package com.lau.scalp.metadata
+package io.github.andkrawiec.metadata
 
-import com.lau.scalp.config.MetadataFragment
-import com.lau.scalp.image.Point
-import com.lau.scalp.image.Rect
+import io.github.andkrawiec.config.MetadataFragment
+import io.github.andkrawiec.image.Point
+import io.github.andkrawiec.image.Rect
 
 class MetadataProcessor {
 

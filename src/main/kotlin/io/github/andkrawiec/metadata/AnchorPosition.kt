@@ -1,4 +1,4 @@
-package com.lau.scalp.metadata
+package io.github.andkrawiec.metadata
 
 enum class AnchorPosition(val raw: Int) {
     TOP(1),

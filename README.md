@@ -8,7 +8,7 @@ Scalp is a Selenium-based library focused on automating the capture and cropping
 4. **Selenium Integration:** Integrates seamlessly with existing Selenium projects, enhancing web automation and testing.
 
 ## Installation
-TODO
+Maven central coordinates: `io.github.andkrawiec:scalp:0.0.1`
 
 ## Quick Start
 Here's a simple example demonstrating how to use Scalp with Selenium to capture a screenshot of a specific fragment of a webpage and apply visual annotations:

@@ -1,4 +1,4 @@
-package com.lau.scalp.image
+package io.github.andkrawiec.image
 
 import java.awt.BasicStroke
 import java.awt.Color
@@ -104,8 +104,8 @@ object ImageProcessor {
             dispose()
         }
 
-            ConvolveOp(kernel, EDGE_NO_OP, null)
-                .filter(subImage, blurredSubImage)
+        ConvolveOp(kernel, EDGE_NO_OP, null)
+            .filter(subImage, blurredSubImage)
 
         with(sourceImage.createGraphics()) {
             drawImage(blurredSubImage, clippedRect.x, clippedRect.y, null)
@@ -114,7 +114,6 @@ object ImageProcessor {
 
         return sourceImage
     }
-
 
     fun addText(
         sourceImage: BufferedImage,

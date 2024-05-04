@@ -1,4 +1,4 @@
-package com.lau.scalp.config
+package io.github.andkrawiec.config
 
 class JsScriptConfig(
     val maxHeight: String = DEFAULT_MAX_HEIGHT,

@@ -1,14 +1,14 @@
-package com.lau.scalp.metadata
+package io.github.andkrawiec.metadata
 
-import com.lau.scalp.image.Padding
-import com.lau.scalp.image.Point
-import com.lau.scalp.image.Rect
-import com.lau.scalp.metadata.AnchorPosition.BOTTOM
-import com.lau.scalp.metadata.AnchorPosition.INSIDE
-import com.lau.scalp.metadata.AnchorPosition.LEFT
-import com.lau.scalp.metadata.AnchorPosition.OUTSIDE
-import com.lau.scalp.metadata.AnchorPosition.RIGHT
-import com.lau.scalp.metadata.AnchorPosition.TOP
+import io.github.andkrawiec.image.Padding
+import io.github.andkrawiec.image.Point
+import io.github.andkrawiec.image.Rect
+import io.github.andkrawiec.metadata.AnchorPosition.BOTTOM
+import io.github.andkrawiec.metadata.AnchorPosition.INSIDE
+import io.github.andkrawiec.metadata.AnchorPosition.LEFT
+import io.github.andkrawiec.metadata.AnchorPosition.OUTSIDE
+import io.github.andkrawiec.metadata.AnchorPosition.RIGHT
+import io.github.andkrawiec.metadata.AnchorPosition.TOP
 
 class AnchorPositionCalculator(
     private val offset: Int

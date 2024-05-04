@@ -1,54 +1,54 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
-    kotlin("jvm") version "1.7.0"
-    id("maven-publish")
-    id("signing")
+    kotlin("jvm") version "1.9.20"
+    id("com.vanniktech.maven.publish") version "0.28.0"
     application
 }
 
-group = "com.lau"
-version = "0.0.1-rc.1"
+group = "io.github.andkrawiec"
+version = "0.0.1"
 
 repositories {
     mavenCentral()
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            from(components["java"])
-            groupId = "com.lau"
-            artifactId = "scalp"
-            version = "0.0.1-rc.1"
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
 
-            pom {
-                name.set("Scalp")
-                description.set("Selenium-based library for capturing web page screenshots and creating visual blueprints")
-                url.set("https://github.com/Andrzej-Krawiec/Scalp")
+    coordinates(
+        groupId = "io.github.andkrawiec",
+        artifactId = "scalp",
+        version = "0.0.1"
+    )
 
-                licenses {
-                    license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
-
-                developers {
-                    developer {
-                        id.set(project.property("mavenId") as String)
-                        name.set("Andrzej Krawiec")
-                    }
-                }
-
-                scm {
-                    connection.set("scm:git:git://github.com/Andrzej-Krawiec/Scalp.git")
-                    developerConnection.set("scm:git:ssh://github.com:Andrzej-Krawiec/Scalp.git")
-                    url.set("https://github.com/Andrzej-Krawiec/Scalp")
-                }
+    pom {
+        name.set("Scalp")
+        description.set("Selenium-based library for capturing web page screenshots and creating visual blueprints")
+        inceptionYear.set("2024")
+        url.set("https://github.com/andkrawiec/Scalp")
+        licenses {
+            license {
+                name.set("The Apache License, Version 2.0")
+                url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                distribution.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
             }
+        }
+        developers {
+            developer {
+                id.set("andkrawiec")
+                name.set("Andrzej Krawiec")
+                url.set("https://github.com/andkrawiec/")
+            }
+        }
+        scm {
+            url.set("https://github.com/andkrawiec/Scalp")
+            connection.set("scm:git:git://github.com/andkrawiec/Scalp.git")
+            developerConnection.set("scm:git:ssh://github.com:andkrawiec/Scalp.git")
         }
     }
 }
-
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11

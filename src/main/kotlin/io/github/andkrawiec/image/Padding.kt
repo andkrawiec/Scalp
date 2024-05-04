@@ -1,4 +1,4 @@
-package com.lau.scalp.image
+package io.github.andkrawiec.image
 
 data class Padding(
     val left: Int = 0,

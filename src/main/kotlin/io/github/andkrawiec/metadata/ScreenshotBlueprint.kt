@@ -1,7 +1,7 @@
-package com.lau.scalp.metadata
+package io.github.andkrawiec.metadata
 
-import com.lau.scalp.image.Point
-import com.lau.scalp.image.Rect
+import io.github.andkrawiec.image.Point
+import io.github.andkrawiec.image.Rect
 
 data class ScreenshotBlueprint(
     val width: Int,

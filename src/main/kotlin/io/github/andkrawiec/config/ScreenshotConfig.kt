@@ -1,14 +1,14 @@
-package com.lau.scalp.config
+package io.github.andkrawiec.config
 
-import com.lau.scalp.driver.Enlargeable
-import com.lau.scalp.image.Point
-import com.lau.scalp.image.Rect
+import io.github.andkrawiec.driver.Enlarged
+import io.github.andkrawiec.image.Point
+import io.github.andkrawiec.image.Rect
 
 data class ScreenshotConfig(
     val cropFragment: () -> Rect,
     val highlightedElements: List<() -> Rect>,
     val blurredElements: List<() -> Rect>,
-    val enlargedElements: List<() -> Enlargeable>,
+    val enlargedElements: List<() -> Enlarged>,
     val metadata: List<() -> MetadataFragment>,
     val beforeBlock: MutableList<() -> Unit>,
     val afterBlock: MutableList<() -> Unit>

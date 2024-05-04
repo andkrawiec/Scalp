@@ -1,88 +1,59 @@
-package com.lau.scalp.driver
+package io.github.andkrawiec.driver
 
 import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
 
-interface Enlargeable {
-    fun prepare()
-    fun apply(driver: WebDriver, margin: Int)
-    fun reset(driver: WebDriver)
+abstract class Enlarged(
+    private val element: WebElement
+) {
+
+    private var oldStyle: String? = null
+
+    fun prepare() {
+        oldStyle = element.getAttribute("style")
+    }
+
+    fun reset(driver: WebDriver) {
+        oldStyle?.run { driver.setAttribute(element, "style", this) }
+    }
+
+    abstract fun apply(driver: WebDriver, margin: Int)
 }
 
 class EnlargeLeft(
     private val element: WebElement
-) : Enlargeable {
-
-    private var oldStyle: String? = null
-    
-    override fun prepare() {
-        oldStyle = element.getAttribute("style")
-    }
+) : Enlarged(element) {
 
     override fun apply(driver: WebDriver, margin: Int) {
         driver.addAttribute(element, "style", "margin-left: ${margin}px")
-    }
-
-    override fun reset(driver: WebDriver) {
-        oldStyle?.run { driver.setAttribute(element, "style", this) }
     }
 }
 
 class EnlargeTop(
     private val element: WebElement
-) : Enlargeable {
-
-    private var oldStyle: String? = null
-    
-    override fun prepare() {
-        oldStyle = element.getAttribute("style")
-    }
+) : Enlarged(element) {
 
     override fun apply(driver: WebDriver, margin: Int) {
         driver.addAttribute(element, "style", "margin-top: ${margin}px")
-    }
-
-    override fun reset(driver: WebDriver) {
-        oldStyle?.run { driver.setAttribute(element, "style", this) }
     }
 }
 
 class EnlargeRight(
     private val element: WebElement
-) : Enlargeable {
-
-    private var oldStyle: String? = null
-    
-    override fun prepare() {
-        oldStyle = element.getAttribute("style")
-    }
+) : Enlarged(element) {
 
     override fun apply(driver: WebDriver, margin: Int) {
         driver.addAttribute(element, "style", "margin-right: ${margin}px")
-    }
-
-    override fun reset(driver: WebDriver) {
-        oldStyle?.run { driver.setAttribute(element, "style", this) }
     }
 }
 
 class EnlargeBottom(
     private val element: WebElement
-) : Enlargeable {
-
-    private var oldStyle: String? = null
-
-    override fun prepare() {
-        oldStyle = element.getAttribute("style")
-    }
+) : Enlarged(element) {
 
     override fun apply(driver: WebDriver, margin: Int) {
         driver.addAttribute(element, "style", "margin-bottom: ${margin}px")
-    }
-
-    override fun reset(driver: WebDriver) {
-        oldStyle?.run { driver.setAttribute(element, "style", this) }
     }
 }
 

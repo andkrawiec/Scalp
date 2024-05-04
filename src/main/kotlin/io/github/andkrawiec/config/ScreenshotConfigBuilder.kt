@@ -1,15 +1,15 @@
-package com.lau.scalp.config
+package io.github.andkrawiec.config
 
-import com.lau.scalp.driver.EnlargeBottom
-import com.lau.scalp.driver.EnlargeLeft
-import com.lau.scalp.driver.EnlargeRight
-import com.lau.scalp.driver.EnlargeTop
-import com.lau.scalp.driver.Enlargeable
-import com.lau.scalp.image.Padding
-import com.lau.scalp.image.Rect
-import com.lau.scalp.image.rect
-import com.lau.scalp.metadata.AnchorPosition
-import com.lau.scalp.metadata.AnchorPositionCalculator
+import io.github.andkrawiec.driver.EnlargeBottom
+import io.github.andkrawiec.driver.EnlargeLeft
+import io.github.andkrawiec.driver.EnlargeRight
+import io.github.andkrawiec.driver.EnlargeTop
+import io.github.andkrawiec.driver.Enlarged
+import io.github.andkrawiec.image.Padding
+import io.github.andkrawiec.image.Rect
+import io.github.andkrawiec.image.rect
+import io.github.andkrawiec.metadata.AnchorPosition
+import io.github.andkrawiec.metadata.AnchorPositionCalculator
 import org.openqa.selenium.WebElement
 
 class ScreenshotConfigBuilder(
@@ -21,7 +21,7 @@ class ScreenshotConfigBuilder(
     private val metadata = mutableListOf<() -> MetadataFragment>()
     private val highlightedElements = mutableListOf<() -> Rect>()
     private val blurredElements = mutableListOf<() -> Rect>()
-    private val enlargedElements = mutableListOf<() -> Enlargeable>()
+    private val enlargedElements = mutableListOf<() -> Enlarged>()
     private val beforeBlock = mutableListOf<() -> Unit>()
     private val afterBlock = mutableListOf<() -> Unit>()
 
@@ -145,7 +145,6 @@ open class ModifierBuilder {
 
     internal var padding: Padding? = null
 
-
     fun padding(all: Int = 0) {
         padding = Padding(all, all, all, all)
     }
@@ -163,7 +162,7 @@ class CropModifierBuilder : ModifierBuilder() {
 
     internal val highlightedElements = mutableListOf<() -> Rect>()
     internal val blurredElements = mutableListOf<() -> Rect>()
-    internal val enlargedElements = mutableListOf<() -> Enlargeable>()
+    internal val enlargedElements = mutableListOf<() -> Enlarged>()
 
     fun highlight(fragment: WebElement) {
         highlightedElements += { fragment.rect() }

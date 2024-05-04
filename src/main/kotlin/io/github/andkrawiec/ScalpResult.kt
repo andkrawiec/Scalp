@@ -1,6 +1,6 @@
-package com.lau.scalp
+package io.github.andkrawiec
 
-import com.lau.scalp.metadata.ScreenshotBlueprint
+import io.github.andkrawiec.metadata.ScreenshotBlueprint
 import java.awt.image.BufferedImage
 
 data class ScalpResult(

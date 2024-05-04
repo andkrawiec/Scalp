@@ -1,14 +1,14 @@
-package com.lau.scalp
+package io.github.andkrawiec
 
-import com.lau.scalp.config.ScalpConfig
-import com.lau.scalp.config.ScreenType
-import com.lau.scalp.config.ScreenType.DESKTOP
-import com.lau.scalp.config.ScreenType.PHONE
-import com.lau.scalp.config.ScreenType.TABLET
-import com.lau.scalp.config.ScreenshotConfigBuilder
-import com.lau.scalp.driver.DriverApi
-import com.lau.scalp.image.ImageProcessor
-import com.lau.scalp.metadata.MetadataProcessor
+import io.github.andkrawiec.config.ScalpConfig
+import io.github.andkrawiec.config.ScreenType
+import io.github.andkrawiec.config.ScreenType.DESKTOP
+import io.github.andkrawiec.config.ScreenType.PHONE
+import io.github.andkrawiec.config.ScreenType.TABLET
+import io.github.andkrawiec.config.ScreenshotConfigBuilder
+import io.github.andkrawiec.driver.DriverApi
+import io.github.andkrawiec.image.ImageProcessor
+import io.github.andkrawiec.metadata.MetadataProcessor
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.chrome.ChromeDriver
 
