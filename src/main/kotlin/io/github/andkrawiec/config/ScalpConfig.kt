@@ -35,7 +35,7 @@ data class MetadataConfig(
 )
 
 data class ScreenSizeConfig(
-    val mobile: Int = 600,
+    val phone: Int = 600,
     val tablet: Int = 1500
 )
 

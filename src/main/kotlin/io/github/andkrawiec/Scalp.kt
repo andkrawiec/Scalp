@@ -87,7 +87,7 @@ class Scalp(
     fun resize(type: ScreenType) {
         with(driver.manage().window()) {
             when (type) {
-                PHONE -> size = Dimension(config.screenSize.mobile, size.height)
+                PHONE -> size = Dimension(config.screenSize.phone, size.height)
                 TABLET -> size = Dimension(config.screenSize.tablet, size.height)
                 DESKTOP -> maximize()
             }

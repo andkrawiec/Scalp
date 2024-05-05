@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "io.github.andkrawiec"
-version = "0.0.1"
+version = "0.0.2"
 
 repositories {
     mavenCentral()
@@ -20,7 +20,7 @@ mavenPublishing {
     coordinates(
         groupId = "io.github.andkrawiec",
         artifactId = "scalp",
-        version = "0.0.1"
+        version = "0.0.2"
     )
 
     pom {
