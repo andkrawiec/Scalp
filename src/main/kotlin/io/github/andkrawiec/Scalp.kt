@@ -9,6 +9,8 @@ import io.github.andkrawiec.config.ScreenshotConfigBuilder
 import io.github.andkrawiec.driver.DriverApi
 import io.github.andkrawiec.image.ImageProcessor
 import io.github.andkrawiec.metadata.MetadataProcessor
+import io.github.andkrawiec.metadata.ScreenshotBlueprint
+import java.awt.image.BufferedImage
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.chrome.ChromeDriver
 
@@ -55,34 +57,34 @@ class Scalp(
             metadata = screenshotConfig.metadata.map { it() }
         )
 
-        with(config.metadata) {
-            if (drawMetadata) {
-                metadata.elements.forEach { meta ->
-                    ImageProcessor.highlight(
-                        sourceImage = image,
-                        rect = meta.coordinates,
-                        color = borderColor,
-                        lineWidth = borderWidth
-                    )
-                    meta.anchor?.run {
-                        ImageProcessor.addText(
-                            sourceImage = image,
-                            point = this,
-                            color = textColor,
-                            text = meta.index.toString(),
-                            font = font
-                        )
-                    }
-                }
-            }
-        }
-
         enlargedElements.forEach { it.reset(driver) }
         screenshotConfig.afterBlock.forEach { it() }
         driverApi.resetSize()
 
         return ScalpResult(image, metadata)
     }
+
+    fun applyMetadata(image: BufferedImage, blueprint: ScreenshotBlueprint): BufferedImage =
+        with(config.metadata) {
+            blueprint.elements.forEach { meta ->
+                ImageProcessor.highlight(
+                    sourceImage = image,
+                    rect = meta.coordinates,
+                    color = borderColor,
+                    lineWidth = borderWidth
+                )
+                meta.anchor?.run {
+                    ImageProcessor.addText(
+                        sourceImage = image,
+                        point = this,
+                        color = textColor,
+                        text = meta.index.toString(),
+                        font = font
+                    )
+                }
+            }
+            image
+        }
 
     fun resize(type: ScreenType) {
         with(driver.manage().window()) {

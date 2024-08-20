@@ -26,7 +26,6 @@ data class DecoratorConfig(
 )
 
 data class MetadataConfig(
-    val drawMetadata: Boolean = false,
     val baseOffset: Int = 11,
     val borderColor: Color = Color.RED,
     val borderWidth: Int = 3,
