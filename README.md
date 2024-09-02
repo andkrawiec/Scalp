@@ -8,7 +8,7 @@ Scalp is a Selenium-based library focused on automating the capture and cropping
 4. **Selenium Integration:** Integrates seamlessly with existing Selenium projects, enhancing web automation and testing.
 
 ## Installation
-Maven central coordinates: `io.github.andkrawiec:scalp:0.0.3`
+Maven central coordinates: `io.github.andkrawiec:scalp:0.0.4`
 
 ## Quick Start
 Here's a simple example demonstrating how to use Scalp with Selenium to capture a screenshot of a specific fragment of a webpage and apply visual annotations:
@@ -101,10 +101,10 @@ val scalpConfig = ScalpConfig(
     ),
     metadata = MetadataConfig(
         baseOffset = 11, // Specifies the anchor offset, used for positioning the anchor as AnchorPosition.INSIDE or AnchorPosition.OUTSIDE
-        borderColor = Color.RED, // Border color for metadata elements, active only when drawMetadata is true
-        borderWidth = 3, // Border width for metadata elements, active only when drawMetadata is true
-        textColor = Color.RED, // Text color for metadata, active only when drawMetadata is true
-        font = Font("Sans", Font.PLAIN, 20) // Font for metadata text, active only when drawMetadata is true
+        borderColor = Color.RED, // Border color for metadata elements
+        borderWidth = 3, // Border width for metadata elements
+        textColor = Color.RED, // Text color for metadata
+        font = Font("Sans", Font.PLAIN, 20) // Font for metadata text
     ),
     delay = DelayConfig(
         beforeShot = 500.milliseconds, // Waiting time before performing each screenshot

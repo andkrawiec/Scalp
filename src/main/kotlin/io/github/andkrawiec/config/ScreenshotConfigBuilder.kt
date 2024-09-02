@@ -34,45 +34,33 @@ class ScreenshotConfigBuilder(
     }
 
     fun crop(fragment: WebElement, f: (CropModifierBuilder.() -> Unit)? = null) {
-        val modifier = f?.let { CropModifierBuilder().apply(it) }
+        crop(fragment, fragment, fragment, fragment, f)
+    }
 
+    fun crop(
+        left: WebElement,
+        right: WebElement,
+        top: WebElement,
+        bottom: WebElement,
+        f: (CropModifierBuilder.() -> Unit)? = null
+    ) {
+        val modifier = f?.let { CropModifierBuilder().apply(it) }
         lateinit var evaluatedFragment: Rect
 
         this.fragment = {
-            val rect = (modifier
-                ?.padding
-                ?.let { fragment.rect().applyPadding(it) }
-                ?: fragment.rect())
+            val x = left.rect().applyPadding(modifier?.padding).x
+            val y = top.rect().applyPadding(modifier?.padding).y
+            val width = right.rect().applyPadding(modifier?.padding).let { it.x + it.width } - x
+            val height = bottom.rect().applyPadding(modifier?.padding).let { it.y + it.height } - y
+            require(width > 0) { "Fragment width must be > 0"}
+            require(height > 0) { "Fragment height must be > 0"}
+            val rect = Rect(x, y, width, height)
             evaluatedFragment = rect
             rect
         }
 
         if (modifier != null) {
-            highlightedElements.addAll(
-                modifier.highlightedElements.map {
-                    {
-                        val element = it()
-                        element.copy(
-                            x = element.x - evaluatedFragment.x,
-                            y = element.y - evaluatedFragment.y
-                        )
-                    }
-                }
-            )
-
-            blurredElements.addAll(
-                modifier.blurredElements.map {
-                    {
-                        val element = it()
-                        element.copy(
-                            x = element.x - evaluatedFragment.x,
-                            y = element.y - evaluatedFragment.y
-                        )
-                    }
-                }
-            )
-
-            enlargedElements.addAll(modifier.enlargedElements)
+            applyModifier({ evaluatedFragment }, modifier)
         }
     }
 
@@ -138,6 +126,34 @@ class ScreenshotConfigBuilder(
             beforeBlock = beforeBlock,
             afterBlock = afterBlock
         )
+    }
+
+    private fun applyModifier(evaluatedFragment: () -> Rect, modifier: CropModifierBuilder) {
+        highlightedElements.addAll(
+            modifier.highlightedElements.map {
+                {
+                    val element = it()
+                    element.copy(
+                        x = element.x - evaluatedFragment().x,
+                        y = element.y - evaluatedFragment().y
+                    )
+                }
+            }
+        )
+
+        blurredElements.addAll(
+            modifier.blurredElements.map {
+                {
+                    val element = it()
+                    element.copy(
+                        x = element.x - evaluatedFragment().x,
+                        y = element.y - evaluatedFragment().y
+                    )
+                }
+            }
+        )
+
+        enlargedElements.addAll(modifier.enlargedElements)
     }
 }
 

@@ -9,7 +9,10 @@ data class Rect(
     val height: Int
 ) {
 
-    fun applyPadding(padding: Padding): Rect {
+    fun applyPadding(padding: Padding?): Rect {
+        if (padding == null) {
+            return this
+        }
         val safeLeft = minOf(padding.left, x)
         val safeTop = minOf(padding.top, y)
         return copy(
