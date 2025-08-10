@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "io.github.andkrawiec"
-version = "0.0.4"
+version = "0.0.5"
 
 repositories {
     mavenCentral()
@@ -20,7 +20,7 @@ mavenPublishing {
     coordinates(
         groupId = "io.github.andkrawiec",
         artifactId = "scalp",
-        version = "0.0.4"
+        version = "0.0.5"
     )
 
     pom {
@@ -70,7 +70,7 @@ tasks.withType<Test> {
 
 
 dependencies {
-    implementation("org.seleniumhq.selenium:selenium-java:4.20.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.34.0")
     testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }
